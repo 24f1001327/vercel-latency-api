@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import Response
 from pydantic import BaseModel
 import json
 import numpy as np
@@ -21,7 +22,15 @@ class RequestBody(BaseModel):
     regions: list[str]
     threshold_ms: float
 
-@app.post("/api/latency")
+@app.options("/")
+def options_handler():
+    response = Response()
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    response.headers["Access-Control-Allow-Methods"] = "POST, OPTIONS"
+    response.headers["Access-Control-Allow-Headers"] = "*"
+    return response
+
+@app.post("/")
 def latency(body: RequestBody):
     result = {}
 
