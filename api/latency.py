@@ -59,3 +59,7 @@ def latency(body: RequestBody):
         }
 
     return result
+
+@app.get("/api/latency")
+def health():
+    return {"status": "ok"}
