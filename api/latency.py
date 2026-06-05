@@ -22,7 +22,7 @@ class RequestBody(BaseModel):
     regions: list[str]
     threshold_ms: float
 
-@app.options("/")
+@app.options("/api/latency")
 def options_handler():
     response = Response()
     response.headers["Access-Control-Allow-Origin"] = "*"
@@ -30,7 +30,7 @@ def options_handler():
     response.headers["Access-Control-Allow-Headers"] = "*"
     return response
 
-@app.post("/")
+@app.post("/api/latency")
 def latency(body: RequestBody):
     result = {}
 
